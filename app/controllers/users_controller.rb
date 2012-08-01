@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!
+
   def show
-    if current_user
-      @user = User.find(current_user.id)
-    else
-      redirect_to new_user_session_path
-    end
+    @user = User.find(current_user.id)
   end
 end

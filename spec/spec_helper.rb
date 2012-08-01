@@ -1,3 +1,4 @@
+
 require 'rubygems'
 require 'spork'
 #uncomment the following line to use spork with the debugger
@@ -9,7 +10,6 @@ Spork.prefork do
   require 'rspec/rails'
   require 'email_spec'
   require 'rspec/autorun'
-  require 'simplecov'
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
@@ -49,7 +49,12 @@ Spork.prefork do
 end
 
 Spork.each_run do
+    require 'simplecov'
+    SimpleCov.start 'rails'
+
+
   FactoryGirl.reload
+
 end
 
 # --- Instructions ---

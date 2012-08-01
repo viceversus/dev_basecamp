@@ -16,7 +16,7 @@ group :development, :test do
   gem "factory_girl_rails", ">= 3.5.0"
   gem "capybara", ">= 1.1.2"
   gem "email_spec", ">= 1.2.1"
-  gem "simplecov"
+  gem "simplecov", :require => false
   gem "quiet_assets"
   gem "guard"
   gem "guard-rspec"
