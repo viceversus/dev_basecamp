@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates_presence_of   :username
 
   has_many                :projects_as_owner, :class_name => "Project", :foreign_key => "owner_id"
-  has_many                :projects_as_member, :through => :memberships, :foreign_key => "member_id"
+  has_many                :memberships
+  has_many                :projects_as_member, :through => :memberships, :source => :project
+
 
 end

@@ -1,0 +1,15 @@
+%h1 Edit Project
+= form_for @project do |f|
+  = f.label :title
+  = f.text_field :title
+  %br
+  = f.label :description
+  = f.text_area :description, :rows => 3
+  %br
+  = f.label :Private?
+  = f.radio_button :private, true
+  = f.label :Yes
+  = f.radio_button :private, false
+  = f.label :No
+  %br
+  = f.submit :class => 'btn btn-large btn-success'

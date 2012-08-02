@@ -1,0 +1,5 @@
+%h1= @project.title
+%h2= "Created by #{@project.owner.username}"
+%p= link_to "Edit Project", edit_project_path if @project.owner == current_user
+%p= @project.description
+

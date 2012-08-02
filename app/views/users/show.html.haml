@@ -1,2 +1,10 @@
 %h1 Users#show
-%p Find me in app/views/users/show.html.haml
+%p= link_to "Create a Project", new_project_path
+
+%h3= "#{@user.username}'s Projects"
+%ul
+  -@user.projects_as_owner.each do |project|
+    %span<
+      = link_to project.title, project_path(project)
+      = "- #{private_or_public(project)}"
+    %p= project.description

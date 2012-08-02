@@ -1,6 +1,6 @@
 class Membership < ActiveRecord::Base
-  attr_accessible :member_id, :project_id
+  attr_accessible :user_id, :project_id
 
-  belongs_to      :member, :class_name => "User"
+  belongs_to      :user
   belongs_to      :project
 end
