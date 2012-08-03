@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :find_project, :only => [:show, :edit, :update]
+
   def new
     @project = Project.new
   end
@@ -15,15 +18,14 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @list = List.new
+    @list.tasks.build
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update_attributes(params[:project])
       redirect_to @project, notice: "Hooray!"
     else
@@ -32,4 +34,8 @@ class ProjectsController < ApplicationController
     end
   end
 
+private
+  def find_project
+    @project = Project.find(params[:id])
+  end
 end

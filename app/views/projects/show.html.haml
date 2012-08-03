@@ -1,5 +1,31 @@
 %h1= @project.title
 %h2= "Created by #{@project.owner.username}"
+%h3= @project.description
 %p= link_to "Edit Project", edit_project_path if @project.owner == current_user
-%p= @project.description
+
+%h3 Project Lists
+%p
+  - @project.lists.each do |list|
+    %ul
+      = list.title
+      - list.tasks.each do |task|
+        %li
+          = task.description
+
+
+%h3 Create a New List
+%p
+  = form_for [@project, @list] do |f|
+    = f.label :title
+    = f.text_field :title
+    %ul{ :class => "task-form" }
+      = f.fields_for :tasks do |t|
+        %h4 Add New Task
+        %li
+          = t.label :description, "Task description", :class => "small"
+          = t.text_field :description
+    %br
+
+    = f.submit :class => "btn btn-success"
+
 

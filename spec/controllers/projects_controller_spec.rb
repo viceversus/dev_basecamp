@@ -12,7 +12,7 @@ describe ProjectsController do
 
   describe "#create" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = create(:user)
       sign_in @user
     end
 
@@ -44,15 +44,41 @@ describe ProjectsController do
     end
   end
 
-end
+  describe "#edit" do
+    it "assigns the correct project" do
+      @project = create(:project)
+      get(:edit, :id => @project.id)
+      assigns(:project).should eq @project
+    end
+  end
 
-# def create
-#   @user = current_user
-#   @project = @user.projects_as_owner.build(params[:project])
-#   if @project.save
-#     redirect_to @project, notice: "Hooray!"
-#   else
-#     flash.now[:error] = ":("
-#     render :new
-#   end
-# end
+  describe "#update" do
+    context "given valid parameters" do
+      it "updates the project" do
+        @project = create(:project)
+        put(:update, :id => @project.id, :project => { :title => 'blah', :description => 'something' })
+        assigns(:project).title.should eq 'blah'
+        assigns(:project).description.should eq 'something'
+      end
+    end
+
+    context "given invalid parameters" do
+      before :each do
+        Project.any_instance.stub(:update_attributes).and_return(false)
+        @project = create(:project)
+        put(:update, :id => @project.id)
+      end
+
+      it "adds a flash message" do
+        flash[:error].should eq ":("
+      end
+
+      it "renders edit" do
+        response.should render_template(:edit)
+      end
+    end
+
+    describe "#show" do
+    end
+  end
+end

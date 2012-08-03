@@ -5,5 +5,7 @@ DevBasecamp::Application.routes.draw do
 
   match '/users/:username' => 'users#show', :as => :user
 
-  resources :projects
+  resources :projects do
+    resources :lists, :only => :create
+  end
 end

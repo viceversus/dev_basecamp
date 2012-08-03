@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :project do
-    public false
-    owner_id 1
-    title "MyString"
-    description "MyText"
+    restricted false
+    sequence(:title) {|n| "New Title #{n}" }
+    sequence(:description) {|n| "New Description #{n}" }
+    owner
   end
 end

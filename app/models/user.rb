@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible         :email, :password, :password_confirmation, :remember_me, :username
-  validates_presence_of   :username
-  validates_uniqueness_of :username
+  validates               :username,  :presence => true,
+                                      :uniqueness => true,
+                                      :format => { :with => /^\w+$/i, :message => "Only A-Z, a-z, 0-9, and _ allowed." }
 
   has_many                :projects_as_owner, :class_name => "Project", :foreign_key => "owner_id"
   has_many                :memberships
